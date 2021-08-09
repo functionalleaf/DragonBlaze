@@ -63,7 +63,10 @@ class Player():
     def key_hold(self):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f:
-                self.heal()
+                if player.target_health < player.max_health:
+                    self.heal()
+                    print("f")
+                    print(player.healthpotionsremaining)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             if self.x > -10:
