@@ -97,18 +97,21 @@ class Player():
         for balls in dragonballs2:
             if int(balls.x) in range(int(self.x), int(self.x) + 32) and balls.y in range(int(self.y), int(self.y) + 64):
                 balls.y = -1000
-                self.get_damage(100)
+                self.get_damage(80)
         for balls in dragonballs3:
             if int(balls.x) in range(int(self.x), int(self.x) + 32) and balls.y in range(int(self.y), int(self.y) + 64):
                 balls.y = -1000
-                self.get_damage(100)
+                self.get_damage(50)
+    def flamed(self):
+        if int(self.x) in range(int(flamespout.x), int(flamespout.x) + 128) and self.y in range(int(flamespout.y), int(flamespout.y) + 128):
+            self.get_damage(100)
     def is_dead(self):
         if self.target_health == 0:
             over_font = pygame.font.Font('freesansbold.ttf', 64)
             over_text = over_font.render("GAME OVER", True, (0, 0, 0))
             screen.blit(over_text, (200, 250))
-            pause = input("Game Over")
-            pygame.quit()
+
+
     def heal(self):
         if self.healthpotionsremaining > 0:
             self.get_health(50)
@@ -146,12 +149,12 @@ class Dragon():
             self.health = self.health - 20
             print('hit', self.health, "hp left")
             if self.health <= 0:
-                screen.blit(self.img, (-200, -200))
+                self.x = -1000
+                self.y = -1000
                 win_font = pygame.font.Font('freesansbold.ttf', 64)
                 win_text = win_font.render("VICTORY", True, (255, 255, 255))
                 screen.blit(win_text, (200, 250))
-                dead = input("Victory!")
-                pygame.quit()
+
 
     # Very awesome and awe inspiring animation
     def flapping(self):
@@ -169,6 +172,10 @@ class Dragon():
             screen.blit(dragon.fly2, (dragon.x, dragon.y))
             screen.blit(dragon.fly2, (-1000, -1000))
             dragon.dragonballattack3()
+            random1_500 = random.randint(1,500)
+            if random1_500 == 500:
+                flamespout.x = random.randint(0, 700)
+                flamespout.y = random.randint(305, 372)
             self.animation = self.animation + 1
         if self.animation >= 60:
             self.animation = 1
@@ -230,7 +237,12 @@ class Dragon():
                 balls.y = balls.y + 9
                 screen.blit(balls.img, (balls.x, balls.y))
 
-
+class Flamespout():
+    def __init__(self):
+        super().__init__()
+        self.x = -1000
+        self.y = -1000
+        self.img = pygame.image.load('flamespout.png')
 
 
 # Target that indicates where Dragon will use lighting attack (might not be used :( )
@@ -270,6 +282,7 @@ class Fireball():
             screen.blit(self.img, (-100, -100))
 
 
+
 # DragonBlaze Attack
 class Dragonball():
     def __init__(self):
@@ -289,6 +302,7 @@ clock = pygame.time.Clock()
 player = Player()
 dragon = Dragon()
 fireball = Fireball()
+flamespout = Flamespout()
 
 dragonballs = []
 dragonballs2 = []
@@ -348,8 +362,10 @@ while True:
     dragon.dragonballmovemet2()
     dragon.dragonballmovemet3()
     player.hitbydragonball()
+    player.flamed()
     player.is_dead()
     screen.blit(target.img, (target.x, target.y))
+    screen.blit(flamespout.img, (flamespout.x, flamespout.y))
     screen.blit(potionImg, (20, 416))
     f_font = pygame.font.Font('freesansbold.ttf', 25)
     f_text = f_font.render("F", True, (0, 0, 0))
