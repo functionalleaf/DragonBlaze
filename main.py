@@ -103,17 +103,17 @@ class Player():
     # Dragonball Damage
     # 3 Seperate Waves of Fireballs with differnt speed
     def hitbydragonball(self):
-        for fireballs in dragonballs:
-            if int(fireballs.x) in range(int(self.x), int(self.x) + 32) and fireballs.y in range(int(self.y), int(self.y) + 64):
-                fireballs.y = -1000
+        for flameballs in dragonballs:
+            if int(flameballs.x) in range(int(self.x), int(self.x) + 32) and flameballs.y in range(int(self.y), int(self.y) + 64):
+                flameballs.y = -1000
                 self.get_damage(100)
-        for fireballs in dragonballs2:
-            if int(fireballs.x) in range(int(self.x), int(self.x) + 32) and fireballs.y in range(int(self.y), int(self.y) + 64):
-                fireballs.y = -1000
+        for flameballs in dragonballs2:
+            if int(flameballs.x) in range(int(self.x), int(self.x) + 32) and flameballs.y in range(int(self.y), int(self.y) + 64):
+                flameballs.y = -1000
                 self.get_damage(80)
-        for fireballs in dragonballs3:
-            if int(fireballs.x) in range(int(self.x), int(self.x) + 32) and fireballs.y in range(int(self.y), int(self.y) + 64):
-                fireballs.y = -1000
+        for flameballs in dragonballs3:
+            if int(flameballs.x) in range(int(self.x), int(self.x) + 32) and flameballs.y in range(int(self.y), int(self.y) + 64):
+                flameballs.y = -1000
                 self.get_damage(50)
     # Flamespout Attack (Unfunctional?)
     def flamed(self):
