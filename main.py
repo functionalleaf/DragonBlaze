@@ -10,6 +10,7 @@ class Player():
         self.image = pygame.Surface((40, 40))
         self.image.fill((200, 30, 30))
         self.rect = self.image.get_rect(center=(400, 400))
+        #Player Health
         self.current_health = 1000
         self.target_health = 1000
         self.max_health = 1000
@@ -18,16 +19,20 @@ class Player():
         self.health_change_speed = 10
         self.x = 400
         self.y = 320
+        #Player Movement Speed
         self.playerSpeed = 2
+        #Player Image
         self.img = pygame.image.load('wizardquality.png')
         self.healthpotionsremaining = 5
 
+    #Health Reduction
     def get_damage(self, amount):
         if self.target_health > 0:
             self.target_health -= amount
         if self.target_health < 0:
             self.target_health = 0
 
+    #Health Potion Boost
     def get_health(self, amount):
         if self.target_health < self.max_health:
             self.target_health += amount
@@ -36,7 +41,7 @@ class Player():
 
     def update(self):
         self.advanced_health()
-
+    #Health Bar
     def advanced_health(self):
         transition_width = 0
         transition_color = (255, 0, 0)
@@ -96,34 +101,37 @@ class Player():
             running = False
 
     # Dragonball Damage
+    # 3 Seperate Waves of Fireballs with differnt speed
     def hitbydragonball(self):
-        for balls in dragonballs:
-            if int(balls.x) in range(int(self.x), int(self.x) + 32) and balls.y in range(int(self.y), int(self.y) + 64):
-                balls.y = -1000
+        for fireballs in dragonballs:
+            if int(fireballs.x) in range(int(self.x), int(self.x) + 32) and fireballs.y in range(int(self.y), int(self.y) + 64):
+                fireballs.y = -1000
                 self.get_damage(100)
-        for balls in dragonballs2:
-            if int(balls.x) in range(int(self.x), int(self.x) + 32) and balls.y in range(int(self.y), int(self.y) + 64):
-                balls.y = -1000
+        for fireballs in dragonballs2:
+            if int(fireballs.x) in range(int(self.x), int(self.x) + 32) and fireballs.y in range(int(self.y), int(self.y) + 64):
+                fireballs.y = -1000
                 self.get_damage(80)
-        for balls in dragonballs3:
-            if int(balls.x) in range(int(self.x), int(self.x) + 32) and balls.y in range(int(self.y), int(self.y) + 64):
-                balls.y = -1000
+        for fireballs in dragonballs3:
+            if int(fireballs.x) in range(int(self.x), int(self.x) + 32) and fireballs.y in range(int(self.y), int(self.y) + 64):
+                fireballs.y = -1000
                 self.get_damage(50)
+    # Flamespout Attack (Unfunctional?)
     def flamed(self):
         if int(self.x) in range(int(flamespout.x), int(flamespout.x) + 128) and self.y in range(int(flamespout.y), int(flamespout.y) + 128):
             self.get_damage(100)
+    # Check If Player is dead
     def is_dead(self):
         if self.target_health == 0:
             over_font = pygame.font.Font('freesansbold.ttf', 64)
             over_text = over_font.render("GAME OVER", True, (0, 0, 0))
             screen.blit(over_text, (200, 250))
 
-
+    # Use Health Potions
     def heal(self):
         if self.healthpotionsremaining > 0:
             self.get_health(50)
             self.healthpotionsremaining = self.healthpotionsremaining - 1
-    #shoot at mouse
+    #shoot at mouse(Unimplemented)
     # def shoot2(self):
     #     if event.type == pygame.MOUSEBUTTONDOWN:
     #         mouseX, mouseY = pygame.mouse.get_pos()
@@ -313,6 +321,7 @@ dragon = Dragon()
 fireball = Fireball()
 flamespout = Flamespout()
 
+#My list of dragon's attacks, didn't have time to write something better
 dragonballs = []
 dragonballs2 = []
 dragonballs3 = []
