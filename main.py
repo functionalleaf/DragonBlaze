@@ -62,6 +62,13 @@ class Player():
     # Keybinds
     def key_hold(self):
         if event.type == pygame.KEYDOWN:
+            if event.key == K_SPACE:
+              print('space')
+              global state
+              self.state = False
+              self.x = int(player.x + 16)
+              self.y = int(player.y + 16)
+              screen.blit(self.img, (self.x, self.y))
             if event.key == pygame.K_f:
                 if player.target_health < player.max_health:
                     self.heal()
@@ -242,7 +249,8 @@ class Flamespout():
         super().__init__()
         self.x = -1000
         self.y = -1000
-        self.img = pygame.image.load('flamespout.png')
+        self.img = pygame.image.load('dragonblaze.png')
+        # self.img = pygame.image.load('flamespout.png')
 
 
 # Target that indicates where Dragon will use lighting attack (might not be used :( )
@@ -273,6 +281,7 @@ class Fireball():
                 self.x = int(player.x + 16)
                 self.y = int(player.y + 16)
                 screen.blit(self.img, (self.x, self.y))
+        
 
     def fireball_movement(self):
         if self.state == False:
@@ -307,7 +316,6 @@ flamespout = Flamespout()
 dragonballs = []
 dragonballs2 = []
 dragonballs3 = []
-# I probably could do something better than this but I don't have time so deal with it
 dragonball1 = Dragonball()
 dragonballs.append(dragonball1)
 dragonball2 = Dragonball()
