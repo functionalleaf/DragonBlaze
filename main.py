@@ -118,7 +118,7 @@ class Player():
     # Flamespout Attack (Unfunctional?)
     def flamed(self):
         if int(self.x) in range(int(flamespout.x), int(flamespout.x) + 128) and self.y in range(int(flamespout.y), int(flamespout.y) + 128):
-            self.get_damage(100)
+            self.get_damage(1)
     # Check If Player is dead
     def is_dead(self):
         if self.target_health == 0:
@@ -257,7 +257,7 @@ class Flamespout():
         super().__init__()
         self.x = -1000
         self.y = -1000
-        self.img = pygame.image.load('dragonblaze.png')
+        self.img = pygame.image.load('fire.png')
         # self.img = pygame.image.load('flamespout.png')
 
 
